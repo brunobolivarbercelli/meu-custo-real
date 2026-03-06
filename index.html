@@ -35,6 +35,9 @@
         name="busca-produto"
         placeholder="Buscar produto..."
         autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
         onkeyup="buscarProduto()"
       />
     </section>
@@ -61,6 +64,17 @@
           <strong>Total:</strong>
 
           <span id="totalReceita"> R$ 0.00 </span>
+        </div>
+        <div class="configCesta">
+          <label for="margemLucro">Margem de Lucro (%)</label>
+          <input type="number" id="margemLucro" placeholder="Ex: 20" />
+
+          <p><label for="taxaPlataforma">Taxa de Plataforma (%)</label></p>
+          <input
+            type="number"
+            id="taxaPlataforma"
+            placeholder="Ex: 10 (iFood, 99...)"
+          />
         </div>
       </aside>
     </main>

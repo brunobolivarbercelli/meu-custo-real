@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Meu Custo Real</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- TOPO DO SITE -->
+
+    <header class="topo">
+      <div class="logo">
+        <h2>Meu Custo Real</h2>
+      </div>
+
+      <nav id="menuCategorias" class="menuCategorias">
+        <!-- JS gera categorias aqui -->
+      </nav>
+
+      <div class="login">
+        <button>Login</button>
+      </div>
+    </header>
+
+    <!-- BUSCA -->
+
+    <section class="areaBusca">
+      <input
+        type="text"
+        id="busca"
+        placeholder="Buscar produto..."
+        onkeyup="buscarProduto()"
+      />
+    </section>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+
+    <main class="conteudo">
+      <!-- GRID PRODUTOS -->
+
+      <section id="gridProdutos" class="gridProdutos">
+        <!-- JS gera produtos aqui -->
+      </section>
+
+      <!-- CESTA DA RECEITA -->
+
+      <aside class="cesta">
+        <h3>Cesta da Receita</h3>
+
+        <div id="listaCesta">
+          <!-- itens aparecem aqui -->
+        </div>
+
+        <div class="total">
+          <strong>Total:</strong>
+
+          <span id="totalReceita"> R$ 0.00 </span>
+        </div>
+      </aside>
+    </main>
+
+    <!-- CALCULADORA LATERAL -->
+
+    <div id="painelCalculadora" class="painelCalculadora">
+      <div class="fecharCalculadora" onclick="fecharCalculadora()">✕</div>
+
+      <h2 id="nomeProduto">Produto</h2>
+
+      <label>Preço do produto</label>
+
+      <input
+        type="text"
+        id="preco"
+        onkeyup="
+          mascaraDinheiro(this)
+          calcular()
+        "
+        placeholder="R$ 0,00"
+      />
+
+      <label>Peso comprado</label>
+
+      <input
+        type="text"
+        id="pesoComprado"
+        placeholder="ex: 1kg ou 1000g"
+        oninput="calcular()"
+      />
+
+      <small>
+        Aceita: g, kg, ml, l
+        <br />
+        Ex: 1kg, 500g, 1l, 250ml
+      </small>
+
+      <label>Quantidade usada na receita</label>
+
+      <input
+        type="text"
+        id="pesoUsado"
+        placeholder="ex: 200g"
+        oninput="calcular()"
+      />
+
+      <h3 id="resultado">R$ 0.00</h3>
+
+      <button onclick="adicionarCesta()">Adicionar à cesta</button>
+
+      <button onclick="limparCalculadora()">Limpar</button>
+    </div>
+
+    <!-- SCRIPT -->
+
+    <script src="script.js"></script>
+  </body>
+</html>

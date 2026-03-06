@@ -1,0 +1,334 @@
+/* ========================= */
+/* RESET */
+/* ========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ========================= */
+/* BODY */
+/* ========================= */
+
+body {
+  background: #eef1f4;
+  color: #2d3748;
+}
+
+/* ========================= */
+/* TOPO */
+/* ========================= */
+
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 40px;
+
+  background: white;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.logo h2 {
+  color: #0f172a;
+}
+
+.menuCategorias {
+  display: flex;
+  gap: 15px;
+}
+
+.menuCategorias button {
+  background: none;
+  border: none;
+
+  padding: 8px 14px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  color: #334155;
+
+  border-radius: 6px;
+
+  transition: 0.2s;
+}
+
+.menuCategorias button:hover {
+  background: #e2e8f0;
+}
+
+.login button {
+  background: #1f3b4d;
+
+  color: white;
+
+  border: none;
+
+  padding: 10px 18px;
+
+  border-radius: 20px;
+
+  cursor: pointer;
+}
+
+/* ========================= */
+/* BUSCA */
+/* ========================= */
+
+.areaBusca {
+  display: flex;
+  justify-content: center;
+
+  margin: 30px;
+}
+
+.areaBusca input {
+  width: 50%;
+
+  padding: 14px;
+
+  border-radius: 30px;
+
+  border: 1px solid #cbd5e1;
+
+  font-size: 16px;
+
+  outline: none;
+}
+
+/* ========================= */
+/* CONTEÚDO */
+/* ========================= */
+
+.conteudo {
+  display: flex;
+
+  padding: 20px 40px;
+
+  gap: 40px;
+}
+
+/* ========================= */
+/* GRID PRODUTOS */
+/* ========================= */
+
+.gridProdutos {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+
+  gap: 20px;
+
+  flex: 1;
+}
+
+/* ========================= */
+/* CARD PRODUTO */
+/* ========================= */
+
+.cardProduto {
+  background: white;
+
+  border-radius: 14px;
+
+  padding: 20px;
+
+  text-align: center;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  transition: 0.2s;
+}
+
+.cardProduto:hover {
+  transform: translateY(-3px);
+}
+
+.cardProduto img {
+  width: 100px;
+
+  height: 100px;
+
+  object-fit: contain;
+
+  margin-bottom: 10px;
+}
+
+.cardProduto h3 {
+  margin-bottom: 10px;
+
+  font-size: 16px;
+}
+
+.cardProduto button {
+  background: #1f3b4d;
+
+  color: white;
+
+  border: none;
+
+  padding: 8px 14px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+/* ========================= */
+/* CESTA */
+/* ========================= */
+
+.cesta {
+  width: 260px;
+
+  background: white;
+
+  padding: 20px;
+
+  border-radius: 14px;
+
+  height: fit-content;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cesta h3 {
+  margin-bottom: 15px;
+}
+
+#listaCesta div {
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+
+  font-size: 14px;
+}
+
+#listaCesta button {
+  background: none;
+
+  border: none;
+
+  cursor: pointer;
+
+  font-size: 16px;
+}
+
+.total {
+  margin-top: 20px;
+
+  padding-top: 10px;
+
+  border-top: 1px solid #e2e8f0;
+
+  font-size: 18px;
+}
+
+/* ========================= */
+/* CALCULADORA */
+/* ========================= */
+
+.painelCalculadora {
+  position: fixed;
+
+  right: 0;
+
+  top: 0;
+
+  height: 100%;
+
+  width: 320px;
+
+  background: white;
+
+  padding: 25px;
+
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+
+  display: none;
+
+  overflow-y: auto;
+}
+
+.painelCalculadora h2 {
+  margin-bottom: 20px;
+}
+
+.painelCalculadora label {
+  display: block;
+
+  margin-top: 15px;
+
+  font-size: 14px;
+}
+
+.painelCalculadora input {
+  width: 100%;
+
+  padding: 10px;
+
+  margin-top: 5px;
+
+  border-radius: 6px;
+
+  border: 1px solid #cbd5e1;
+}
+
+.painelCalculadora small {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+.painelCalculadora button {
+  margin-top: 15px;
+
+  width: 100%;
+
+  padding: 10px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #1f3b4d;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+#resultado {
+  margin-top: 15px;
+
+  font-size: 22px;
+
+  color: #0f172a;
+}
+
+.fecharCalculadora {
+  position: absolute;
+
+  top: 15px;
+
+  right: 20px;
+
+  font-size: 20px;
+
+  cursor: pointer;
+
+  color: #475569;
+}

@@ -12,6 +12,7 @@ const produtos = [
   { nome: "Açúcar", categoria: "Mercearia" },
   { nome: "Sal", categoria: "Mercearia" },
   { nome: "Farinha de Mandioca", categoria: "Mercearia" },
+  { nome: "Fermento Biológico Seco", categoria: "Mercearia" },
 
   { nome: "Banana", categoria: "Hortifruti" },
   { nome: "Maçã", categoria: "Hortifruti" },

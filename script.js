@@ -37,7 +37,7 @@ const produtos = [
   { nome: "Destilados", categoria: "Liquidos" },
 
   { nome: "Carne moida", categoria: "Açougue" },
-  { nome: "Filé de frango", categoria: "Açougue" },
+  { nome: "Filé de Frango", categoria: "Açougue" },
   { nome: "Coxa e Sobrecoxa", categoria: "Açougue" },
   { nome: "Coxão Duro", categoria: "Açougue" },
   { nome: "Picanha", categoria: "Açougue" },

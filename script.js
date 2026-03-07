@@ -104,6 +104,15 @@ const produtos = [
   { nome: "Pão de Hot Dog", categoria: "Padaria e Panificação" },
   { nome: "Massa de Pizza", categoria: "Padaria e Panificação" },
 
+  { nome: "Carne moida", categoria: "Açougue" },
+  { nome: "Filé de Frango", categoria: "Açougue" },
+  { nome: "Coxa e Sobrecoxa", categoria: "Açougue" },
+  { nome: "Coxão Duro", categoria: "Açougue" },
+  { nome: "Picanha", categoria: "Açougue" },
+  { nome: "Coxão Mole", categoria: "Açougue" },
+  { nome: "Linguiça", categoria: "Açougue" },
+  { nome: "Filé de Tilápia", categoria: "Açougue" },
+
   { nome: "Leite Condensado", categoria: "Doces e Confeitaria" },
   { nome: "Chocolate em Pó", categoria: "Doces e Confeitaria" },
   { nome: "Achocolatado", categoria: "Doces e Confeitaria" },

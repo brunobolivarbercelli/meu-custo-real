@@ -107,19 +107,30 @@ body {
   background: #e2e8f0;
 }
 
-.login button {
-  background: #1f3b4d;
-
+.botaoLogin{
+  background: linear-gradient(135deg, #4CAF50, #2e7d32);
   color: white;
-
   border: none;
-
   padding: 10px 18px;
-
-  border-radius: 20px;
-
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.25s ease;
 }
+
+/* efeito quando passa o mouse */
+.botaoLogin:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+}
+
+/* efeito ao clicar */
+.botaoLogin:active{
+  transform: translateY(0);
+  box-shadow: none;
+}
+
 
 /* ========================= */
 /* BUSCA */
@@ -283,12 +294,10 @@ body {
 .painelCalculadora {
   position: fixed;
 
-  right: 0;
-
+  right: -340px; /* começa fora da tela */
   top: 0;
 
   height: 100%;
-
   width: 320px;
 
   background: white;
@@ -297,81 +306,92 @@ body {
 
   box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
 
-  display: none;
-
   overflow-y: auto;
+
+  z-index: 1000;
+
+  transition: right 0.3s ease; /* animação */
+}
+
+/* calculadora aberta */
+.painelCalculadora.ativa {
+  right: 0;
 }
 
 .painelCalculadora h2 {
   margin-bottom: 20px;
+  padding-right: 30px;
 }
 
 .painelCalculadora label {
   display: block;
-
   margin-top: 15px;
-
   font-size: 14px;
 }
 
 .painelCalculadora input {
   width: 100%;
-
   padding: 10px;
-
   margin-top: 5px;
 
   border-radius: 6px;
-
   border: 1px solid #cbd5e1;
 }
 
 .painelCalculadora small {
   display: block;
-
   margin-top: 6px;
 
   color: #64748b;
-
   font-size: 12px;
 }
 
-.painelCalculadora button {
+.painelCalculadora button:not(.fecharCalculadora) {
   margin-top: 15px;
-
   width: 100%;
-
   padding: 10px;
-
   border: none;
-
   border-radius: 8px;
-
   background: #1f3b4d;
-
   color: white;
-
   cursor: pointer;
 }
 
+
 #resultado {
   margin-top: 15px;
-
   font-size: 22px;
-
   color: #0f172a;
 }
+
+/* BOTÃO FECHAR */
 
 .fecharCalculadora {
   position: absolute;
 
-  top: 15px;
+  top: 10px;
+  right: 10px;
 
-  right: 20px;
+  width: 26px;
+  height: 26px;
 
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f1f5f9;
+
+  border-radius: 50%;
 
   cursor: pointer;
 
+  font-size: 14px;
+  font-weight: bold;
+
   color: #475569;
+}
+
+.fecharCalculadora:hover {
+  background: #e2e8f0;
+  color: #334155;
 }

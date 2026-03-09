@@ -448,3 +448,34 @@ padding:10px;
 cursor:pointer;
 
 }
+
+.loginArea {
+  position: relative;
+}
+
+.menuUsuario {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 5px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  display: none;
+  z-index: 1000;
+}
+
+.menuUsuario button {
+  display: block;
+  width: 100%;
+  padding: 5px 10px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menuUsuario button:hover {
+  background-color: #f0f0f0;
+}

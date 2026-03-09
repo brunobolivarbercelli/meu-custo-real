@@ -21,140 +21,72 @@ SUPABASE_KEY
 // LOGIN
 // ============================
 
-async function login(){
+async function login() {
+  const email = document.getElementById("email").value
+  const senha = document.getElementById("senha").value
 
-const email = document.getElementById("email").value
-const senha = document.getElementById("senha").value
+  if(!email || !senha){
+    alert("Preencha email e senha")
+    return
+  }
 
-if(!email || !senha){
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password: senha
+  })
 
-alert("Preencha email e senha")
+  if(error){
+    alert(error.message)
+    return
+  }
 
-return
+  alert("Login realizado!")
 
+  fecharLogin()
+
+  // Depois de logar com sucesso, atualiza o botão
+  usuarioLogado(data.user)
 }
 
-const { data, error } =
-await supabaseClient.auth.signInWithPassword({
-
-email: email,
-password: senha
-
-})
-
-if(error){
-
-alert(error.message)
-
-}else{
-
-usuarioLogado(data.user)
-
-fecharLogin()
-
-}
-
-}
-
-// ============================
-// LOGOUT
-// ============================
-
-async function logout(){
-
-if(!supabaseClient) return
-
-await supabaseClient.auth.signOut()
-
-const botao = document.getElementById("botaoLogin")
-
-if(botao){
-
-botao.textContent = "Login"
-
-botao.onclick = abrirLogin
-
-}
-
-}
-
-
-
-// ============================
-// CADASTRO
-// ============================
-
-async function cadastrar(){
-
-const email = document.getElementById("email").value.trim()
-const senha = document.getElementById("senha").value.trim()
-
-if(email === "" || senha === ""){
-
-alert("Preencha email e senha")
-
-return
-
-}
-
-if(senha.length < 6){
-
-alert("A senha precisa ter pelo menos 6 caracteres")
-
-return
-
-}
-
-const { data, error } =
-await supabaseClient.auth.signUp({
-
-email: email,
-password: senha
-
-})
-
-if(error){
-
-alert(error.message)
-
-}else{
-
-alert("Conta criada! Verifique seu email.")
-
-}
-
-}
-
-// ============================
-// VERIFICAR SESSÃO
-// ============================
-
-document.addEventListener("DOMContentLoaded", async () => {
-
-if(!supabaseClient) return
-
-const { data } = await supabaseClient.auth.getSession()
-
-if(data.session){
-
-usuarioLogado(data.session.user)
-
-}
-
-})
-
+// Atualiza botão para estado logado
+// Atualiza botão para estado logado
 function usuarioLogado(user){
+  const botaoLogin = document.getElementById("botaoLogin")
+  const menuUsuario = document.getElementById("menuUsuario")
 
-const botao = document.getElementById("botaoLogin")
+  botaoLogin.textContent = user.email + " ▾"
 
-if(botao){
+  // Remove qualquer listener antigo de abrir login
+  botaoLogin.replaceWith(botaoLogin.cloneNode(true))
+  const novoBotao = document.getElementById("botaoLogin")
 
-botao.textContent = "Sair"
+  // Agora, clicar abre o menu de usuário
+  novoBotao.addEventListener("click", (e) => {
+    e.stopPropagation() // impede que clique abra modal login
+    menuUsuario.style.display = menuUsuario.style.display === "none" ? "block" : "none"
+  })
 
-botao.onclick = logout
+  // Evita que menu feche ao clicar dentro dele
+  menuUsuario.addEventListener("click", (e) => e.stopPropagation())
 
+  // Fecha menu ao clicar fora
+  document.addEventListener("click", () => {
+    menuUsuario.style.display = "none"
+  })
 }
 
+// Logout
+async function logout(){
+  if(!supabaseClient) return
+  await supabaseClient.auth.signOut()
+
+  const botaoLogin = document.getElementById("botaoLogin")
+  const menuUsuario = document.getElementById("menuUsuario")
+
+  botaoLogin.textContent = "Login"
+  menuUsuario.style.display = "none"
+
+  // Reatribui função de abrir modal de login
+  botaoLogin.replaceWith(botaoLogin.cloneNode(true))
+  document.getElementById("botaoLogin").addEventListener("click", abrirLogin)
 }
-
-

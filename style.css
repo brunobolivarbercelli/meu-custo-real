@@ -395,3 +395,56 @@ body {
   background: #e2e8f0;
   color: #334155;
 }
+
+/* LOGIN */
+
+.modalLogin{
+
+position: fixed;
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background: rgba(0,0,0,0.5);
+
+display:none;
+
+align-items:center;
+justify-content:center;
+
+z-index:999;
+
+}
+
+.modalConteudo{
+
+background:white;
+
+padding:30px;
+
+border-radius:10px;
+
+display:flex;
+flex-direction:column;
+
+gap:10px;
+
+width:300px;
+
+}
+
+.modalConteudo input{
+
+padding:10px;
+font-size:16px;
+
+}
+
+.modalConteudo button{
+
+padding:10px;
+cursor:pointer;
+
+}

@@ -126,7 +126,7 @@ const produtos = [
 // VARIÁVEIS
 // ============================
 
-const categorias = [...new Set(produtos.map(p=>p.categoria))]
+const categorias = [...new Set(produtos.map(p => p.categoria))]
 let cesta = []
 let produtoAtual = ""
 
@@ -151,15 +151,12 @@ return str
 function renderCategorias(){
 
 const menu = document.getElementById("menuCategorias")
-
 menu.innerHTML=""
 
 categorias.forEach(cat=>{
 
 const btn = document.createElement("button")
-
 btn.textContent = cat
-
 btn.onclick = ()=>renderProdutos(cat)
 
 menu.appendChild(btn)
@@ -175,7 +172,6 @@ menu.appendChild(btn)
 function renderProdutos(categoria){
 
 const grid = document.getElementById("gridProdutos")
-
 grid.innerHTML=""
 
 const filtrados = produtos.filter(p=>p.categoria===categoria)
@@ -183,21 +179,14 @@ const filtrados = produtos.filter(p=>p.categoria===categoria)
 filtrados.forEach(produto=>{
 
 const card = document.createElement("div")
-
 card.className="cardProduto"
 
 const imgNome = limparTexto(produto.nome)
 
 card.innerHTML = `
-
 <img src="assets/images/${imgNome}.png">
-
 <h3>${produto.nome}</h3>
-
-<button onclick="abrirCalculadora('${produto.nome}')">
-Calcular
-</button>
-
+<button onclick="abrirCalculadora('${produto.nome}')">Calcular</button>
 `
 
 grid.appendChild(card)
@@ -217,7 +206,6 @@ document.getElementById("busca").value
 )
 
 const grid = document.getElementById("gridProdutos")
-
 grid.innerHTML=""
 
 const filtrados = produtos.filter(p=>
@@ -229,19 +217,12 @@ filtrados.forEach(produto=>{
 const imgNome = limparTexto(produto.nome)
 
 const card = document.createElement("div")
-
 card.className="cardProduto"
 
 card.innerHTML = `
-
 <img src="assets/images/${imgNome}.png">
-
 <h3>${produto.nome}</h3>
-
-<button onclick="abrirCalculadora('${produto.nome}')">
-Calcular
-</button>
-
+<button onclick="abrirCalculadora('${produto.nome}')">Calcular</button>
 `
 
 grid.appendChild(card)
@@ -281,7 +262,6 @@ function mascaraDinheiro(campo){
 let v = campo.value.replace(/\D/g,"")
 
 v = (v/100).toFixed(2)+""
-
 v = v.replace(".",",")
 
 campo.value = "R$ "+v
@@ -299,11 +279,8 @@ if(!valor) return 0
 valor = valor.toLowerCase().trim()
 
 if(valor.includes("kg")) return parseFloat(valor)*1000
-
 if(valor.includes("g")) return parseFloat(valor)
-
 if(valor.includes("ml")) return parseFloat(valor)
-
 if(valor.includes("l")) return parseFloat(valor)*1000
 
 return parseFloat(valor)
@@ -311,10 +288,10 @@ return parseFloat(valor)
 }
 
 // ============================
-// CALCULAR
+// CALCULAR CUSTO BASE
 // ============================
 
-function calcular(){
+function calcularCustoBase(){
 
 let preco = document.getElementById("preco").value
 
@@ -333,22 +310,47 @@ document.getElementById("pesoUsado").value
 )
 
 if(!preco || !pesoComprado || !pesoUsado){
-
-document.getElementById("resultado")
-.textContent = "R$ 0.00"
-
 return 0
+}
+
+const precoPorGrama = preco / pesoComprado
+
+return precoPorGrama * pesoUsado
 
 }
 
-const precoPorGrama = preco/pesoComprado
+// ============================
+// ATUALIZAR CÁLCULO
+// ============================
 
-const custo = precoPorGrama*pesoUsado
+function atualizarCalculo(){
 
-document.getElementById("resultado")
-.textContent = "R$ "+custo.toFixed(2)
+const custoBase = calcularCustoBase()
 
-return custo
+const margem = parseFloat(
+document.getElementById("margemLucro").value
+) || 0
+
+const taxa = parseFloat(
+document.getElementById("taxaPlataforma").value
+) || 0
+
+let valorFinal = custoBase
+
+if(custoBase > 0){
+
+const lucro = custoBase * (margem/100)
+const taxaValor = custoBase * (taxa/100)
+
+valorFinal = custoBase + lucro + taxaValor
+
+}
+
+document.getElementById("resultado").textContent =
+"R$ " + valorFinal.toFixed(2)
+
+renderCesta()
+
 
 }
 
@@ -358,38 +360,29 @@ return custo
 
 function adicionarCesta(){
 
-const custoBase = calcular()
+const preco = document.getElementById("preco").value
+const pesoComprado = document.getElementById("pesoComprado").value
+const pesoUsado = document.getElementById("pesoUsado").value
 
-const margem = parseFloat(
-document.getElementById("margemLucro").value
-)||0
-
-const taxa = parseFloat(
-document.getElementById("taxaPlataforma").value
-)||0
-
-const custoFinal =
-custoBase +
-custoBase*(margem/100) +
-custoBase*(taxa/100)
+const custoBase = calcularCustoBase()
 
 cesta.push({
 
 produto: produtoAtual,
-custoBase: custoBase,
-margem: margem,
-taxaPlataforma: taxa,
-valor: custoFinal
+preco: preco,
+pesoComprado: pesoComprado,
+pesoUsado: pesoUsado,
+custoBase: custoBase
 
 })
 
 renderCesta()
 
 limparCalculadora()
-
 fecharCalculadora()
 
 }
+
 
 // ============================
 // RENDER CESTA
@@ -398,22 +391,38 @@ fecharCalculadora()
 function renderCesta(){
 
 const lista = document.getElementById("listaCesta")
-
 lista.innerHTML=""
 
 let total = 0
 
+const margem = parseFloat(
+document.getElementById("margemLucro").value
+) || 0
+
+const taxa = parseFloat(
+document.getElementById("taxaPlataforma").value
+) || 0
+
 cesta.forEach((item,index)=>{
 
-total += item.valor
+const lucro = item.custoBase * (margem/100)
+const taxaValor = item.custoBase * (taxa/100)
+
+const valorFinal = item.custoBase + lucro + taxaValor
+
+total += valorFinal
 
 const div = document.createElement("div")
 
 div.innerHTML = `
 
-<strong>${item.produto}</strong> - R$ ${item.valor.toFixed(2)}
+<strong>${item.produto}</strong> - R$ ${valorFinal.toFixed(2)}
 <br>
-<small>Custo: R$ ${item.custoBase.toFixed(2)} | Margem: ${item.margem}% | Taxa: ${item.taxaPlataforma}%</small>
+<small>
+Compra: ${item.preco} | ${item.pesoComprado}
+<br>
+Usado: ${item.pesoUsado}
+</small>
 <br>
 <button onclick="removerItem(${index})">🗑</button>
 
@@ -428,6 +437,7 @@ document.getElementById("totalReceita")
 
 }
 
+
 // ============================
 // REMOVER ITEM
 // ============================
@@ -441,7 +451,7 @@ renderCesta()
 }
 
 // ============================
-// LIMPAR CALCULADORA
+// LIMPAR
 // ============================
 
 function limparCalculadora(){
@@ -450,42 +460,68 @@ document.getElementById("preco").value=""
 document.getElementById("pesoComprado").value=""
 document.getElementById("pesoUsado").value=""
 
-document.getElementById("resultado")
-.textContent="R$ 0.00"
+document.getElementById("resultado").textContent="R$ 0.00"
 
 }
 
 // ============================
-// ATUALIZAR CÁLCULO
+// ATIVA CÁLCULO AUTOMÁTICO
 // ============================
 
-function atualizarCalculo(){
+function ativarCalculoAutomatico(){
 
-const custoBase = calcular()
+const campos = [
+"preco",
+"pesoComprado",
+"pesoUsado",
+"margemLucro",
+"taxaPlataforma"
+]
 
-const margem = parseFloat(
-document.getElementById("margemLucro").value
-) || 0
+campos.forEach(id=>{
 
-const taxa = parseFloat(
-document.getElementById("taxaPlataforma").value
-) || 0
+const el = document.getElementById(id)
 
-const valorFinal =
-custoBase +
-custoBase*(margem/100) +
-custoBase*(taxa/100)
+if(el){
 
-document.getElementById("resultado").textContent =
-"R$ " + valorFinal.toFixed(2)
+el.addEventListener("input", atualizarCalculo)
 
 }
 
+})
+
+}
+
+window.addEventListener("DOMContentLoaded", ativarCalculoAutomatico)
 
 // ============================
 // INICIAR SISTEMA
 // ============================
 
 renderCategorias()
-
 renderProdutos("Mercearia")
+
+// ============================
+// LOGIN SIMPLES
+// ============================
+
+document
+.getElementById("botaoLogin")
+.addEventListener("click", abrirLogin)
+
+function abrirLogin(){
+
+document
+.getElementById("modalLogin")
+.style.display = "flex"
+
+}
+
+function fecharLogin(){
+
+document
+.getElementById("modalLogin")
+.style.display = "none"
+
+}
+

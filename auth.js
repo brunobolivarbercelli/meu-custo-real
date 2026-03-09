@@ -48,13 +48,36 @@ alert(error.message)
 
 }else{
 
-alert("Login realizado!")
+usuarioLogado(data.user)
 
 fecharLogin()
 
 }
 
 }
+
+// ============================
+// LOGOUT
+// ============================
+
+async function logout(){
+
+if(!supabaseClient) return
+
+await supabaseClient.auth.signOut()
+
+const botao = document.getElementById("botaoLogin")
+
+if(botao){
+
+botao.textContent = "Login"
+
+botao.onclick = abrirLogin
+
+}
+
+}
+
 
 
 // ============================
@@ -101,3 +124,37 @@ alert("Conta criada! Verifique seu email.")
 }
 
 }
+
+// ============================
+// VERIFICAR SESSÃO
+// ============================
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+if(!supabaseClient) return
+
+const { data } = await supabaseClient.auth.getSession()
+
+if(data.session){
+
+usuarioLogado(data.session.user)
+
+}
+
+})
+
+function usuarioLogado(user){
+
+const botao = document.getElementById("botaoLogin")
+
+if(botao){
+
+botao.textContent = "Sair"
+
+botao.onclick = logout
+
+}
+
+}
+
+

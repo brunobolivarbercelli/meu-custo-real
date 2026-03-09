@@ -512,16 +512,26 @@ document
 function abrirLogin(){
 
 document
-.getElementById("modalLogin")
-.style.display = "flex"
+.getElementById("modalLogin").style.display = "flex"
 
 }
 
 function fecharLogin(){
 
 document
-.getElementById("modalLogin")
-.style.display = "none"
+.getElementById("modalLogin").style.display = "none"
 
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+
+const botaoLogin = document.getElementById("botaoLogin")
+
+if(botaoLogin){
+
+botaoLogin.addEventListener("click", abrirLogin)
+
+}
+
+})
 
